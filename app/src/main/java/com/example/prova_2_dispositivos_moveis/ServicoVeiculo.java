@@ -17,25 +17,28 @@ import java.util.LinkedList;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class ServicoMarca extends Service {
+public class ServicoVeiculo extends Service {
     Gson gson;
 
-    class ServicoBinder extends Binder {
-        public ServicoMarca getService() {
-            return ServicoMarca.this;
+    public ServicoVeiculo() {
+    }
+
+    class VeiculoBinder extends Binder {
+        public ServicoVeiculo getService() {
+            return ServicoVeiculo.this;
         }
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        return new ServicoBinder();
+        return new ServicoVeiculo.VeiculoBinder();
     }
 
-    public void getMarca(ListView lista, LinkedList<Marca> marcas, ArrayAdapter<Marca> adapter) {
+    public void getVeiculos(ListView lista, LinkedList<Veiculo> veiculos, ArrayAdapter<Veiculo> adapter) {
         GsonBuilder bld = new GsonBuilder();
         gson = bld.create();
         try {
-            URL url = new URL("https://argo.td.utfpr.edu.br/locadora-war/ws/marca");
+            URL url = new URL("https://argo.td.utfpr.edu.br/locadora-war/ws/veiculo");
             HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
             if (con.getResponseCode() == 200) {
                 String resp = "";
@@ -47,12 +50,12 @@ public class ServicoMarca extends Service {
                         resp += linha;
                     }
                 } while (linha != null);
-                Marca[] value = gson.fromJson(resp, Marca[].class);
+                Veiculo[] value = gson.fromJson(resp, Veiculo[].class);
 
                 if (value != null) {
-                    marcas.clear();
-                    for (Marca m : value)
-                        marcas.add(m);
+                    veiculos.clear();
+                    for (Veiculo v : value)
+                        veiculos.add(v);
                 }
                 lista.post(new Runnable() {
                     public void run() {

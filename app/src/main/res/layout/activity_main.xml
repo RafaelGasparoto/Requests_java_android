@@ -5,13 +5,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button"
         android:onClick="iniciar"
         android:text="Send Broadcast"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/consulta_veiculo"
+        android:onClick="goToConsultaVeiculo"
+        android:text="Consulta Veiculo"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cadastro_veiculo"
+        android:onClick="goToCadastroVeiculo"
+        android:text="Cadastro Veiculo"/>
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

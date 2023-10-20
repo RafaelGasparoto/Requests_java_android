@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public ServiceConnection myConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className, IBinder binder) {
-            myReceiver.myServiceBinder = ((ServicoMarca.MeuBinder) binder).getService();
+            myReceiver.myServiceBinder = ((ServicoMarca.ServicoBinder) binder).getService();
             Log.d("ServiceConnection", "connected");
         }
 
@@ -40,11 +40,11 @@ public class MainActivity extends AppCompatActivity {
             myReceiver.myServiceBinder = null;
         }
     };
-
     MyReceiver myReceiver = new MyReceiver();
     ArrayAdapter<Marca> adapter;
     LinkedList<Marca> marcas;
     ListView lista;
+    final static int CONSULTA_SCREEN = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +72,35 @@ public class MainActivity extends AppCompatActivity {
         bindService(intent, myConnection, Context.BIND_AUTO_CREATE);
     }
 
+    @Override
+    public void onActivityResult(int code,
+                                 int result, Intent data) {
+        super.onActivityResult(code, result, data);
+
+//        if (code == EDIT_ADD_SCREEN && result == RESULT_OK) {
+//            Vehicle vehicle = (Vehicle) data.getSerializableExtra("vehicle");
+//            if (positionEdit >= 0) {
+//                vehicle_list.set(positionEdit, vehicle);
+//                positionEdit = -1;
+//            } else {
+//                vehicle_list.add(vehicle);
+//                backup_vehicle_list.add(vehicle);
+//            }
+//            customAdapter.notifyDataSetChanged();
+//        }
+    }
+
     public void iniciar(View v) {
         Intent intent = new Intent("NUMERO_GERADO");
-        intent.putExtra("QUANTIDADE", 10);
         sendBroadcast(intent);
+    }
+
+    public void goToConsultaVeiculo(View v) {
+        Intent intent = new Intent(this, ConsultaVeiculo.class);
+        startActivityForResult(intent, CONSULTA_SCREEN);
+    }
+
+    public void goToCadastroVeiculo(View v) {
+
     }
 }
