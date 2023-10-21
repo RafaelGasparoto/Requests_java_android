@@ -1,25 +1,21 @@
 package com.example.prova_2_dispositivos_moveis;
 
 
-import androidx.annotation.NonNull;
-
 public class Veiculo {
-    public Veiculo(int ano, int idModel, String cor, String placa, Modelo modelo) {
+    public Veiculo(int ano, int idModelo, String cor, String placa) {
         this.ano = ano;
-        this.idModel = idModel;
+        this.idModelo = idModelo;
         this.cor = cor;
         this.placa = placa;
-        this.modelo = modelo;
     }
 
-    public int ano, idModel;
+    public int ano, idModelo;
     public String cor, placa;
-    public Modelo modelo;
 
 
     @Override
     public String toString() {
-        return ano + " | " + placa + " | " + modelo;
+        return ano + " | " + placa + " | " + idModelo;
     }
 }
 

@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -12,6 +13,7 @@ import com.google.gson.GsonBuilder;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.LinkedList;
 
@@ -63,6 +65,25 @@ public class ServicoVeiculo extends Service {
                     }
                 });
             }
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
+    public void postVeiculo(Veiculo veiculo) {
+        GsonBuilder bld = new GsonBuilder();
+        gson = bld.create();
+        String json = gson.toJson(veiculo);
+        try {
+            URL url = new URL("https://argo.td.utfpr.edu.br/locadora-war/ws/veiculo");
+            HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("content-type", "application/json");
+            PrintWriter pw = new PrintWriter(con.getOutputStream());
+            pw.println(json);
+            pw.flush();
+            con.connect();
+            Log.d("ResponseCode", "Http " + con.getResponseCode());
         } catch (Throwable t) {
             t.printStackTrace();
         }

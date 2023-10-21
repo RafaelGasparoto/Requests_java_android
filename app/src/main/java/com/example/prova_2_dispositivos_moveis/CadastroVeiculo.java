@@ -13,19 +13,19 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.LinkedList;
 
-public class ConsultaVeiculo extends AppCompatActivity {
-
+public class CadastroVeiculo extends AppCompatActivity {
     public class MyReceiverVeiculos extends BroadcastReceiver {
         public ServicoVeiculo myServiceBinder;
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("GET_VEICULOS")) {
-                myServiceBinder.getVeiculos(lista, veiculos, adapter);
+            if (intent.getAction().equals("POST_VEICULO")) {
+                myServiceBinder.postVeiculo(veiculo);
             }
         }
     }
@@ -41,42 +41,54 @@ public class ConsultaVeiculo extends AppCompatActivity {
             myReceiver.myServiceBinder = null;
         }
     };
-    MyReceiverVeiculos myReceiver = new MyReceiverVeiculos();
-    ArrayAdapter<Veiculo> adapter;
-    LinkedList<Veiculo> veiculos;
-    ListView lista;
+    CadastroVeiculo.MyReceiverVeiculos myReceiver = new CadastroVeiculo.MyReceiverVeiculos();
+    Veiculo veiculo;
+
+    EditText idModelo;
+    EditText ano;
+    EditText cor;
+    EditText placa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_consulta_veiculo);
+        setContentView(R.layout.activity_cadastro_veiculo);
         registerReceiver(myReceiver,
-                new IntentFilter("GET_VEICULOS"));
-        this.doBindService();
-        this.makeListView();
-
+                new IntentFilter("POST_VEICULO"));
+        doBindService();
+        getEditText();
     }
 
-    public void makeListView() {
-        veiculos = new LinkedList<>();
-        veiculos.add(new Veiculo(
-                10, 1, "PRETA", "AAA"
-        ));
-        adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
-                veiculos);
-        lista = findViewById(R.id.lista_veiculos);
-        lista.setAdapter(adapter);
+    private void getEditText() {
+        idModelo = findViewById(R.id.id_modelo);
+        ano = findViewById(R.id.ano);
+        cor = findViewById(R.id.cor);
+        placa = findViewById(R.id.placa);
     }
 
+    private Veiculo buildVeiculo() {
+         return new Veiculo(
+                Integer.parseInt(String.valueOf(ano.getText())),
+                Integer.parseInt(String.valueOf(idModelo.getText())),
+                cor.getText().toString(),
+                placa.getText().toString()
+        );
+    }
+
+    private boolean checar_campo_vazio() {
+        return placa.getText().toString().isEmpty() || ano.getText().toString().isEmpty() || cor.getText().toString().isEmpty()|| idModelo.getText().toString().isEmpty();
+    }
+
+    public void cadastrarVeiculo(View v) {
+        if (!checar_campo_vazio()) {
+            veiculo = buildVeiculo();
+            Intent intent = new Intent("POST_VEICULO");
+            sendBroadcast(intent);
+        }
+    }
 
     public void doBindService() {
         Intent intent = new Intent(this, ServicoVeiculo.class);
         bindService(intent, myConnection, Context.BIND_AUTO_CREATE);
-    }
-
-    public void click(View v) {
-        Intent intent = new Intent("GET_VEICULOS");
-        sendBroadcast(intent);
     }
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CadastroVeiculo">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Cadastro de veículos"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/id_modelo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ID Modelo" />
+
+    <EditText
+        android:id="@+id/ano"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="ano" />
+
+    <EditText
+        android:id="@+id/cor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="cor" />
+
+    <EditText
+        android:id="@+id/placa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="placa" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Cadastrar"
+        android:onClick="cadastrarVeiculo"/>
+</LinearLayout>

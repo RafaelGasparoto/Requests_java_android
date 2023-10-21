@@ -19,32 +19,33 @@ import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public class MyReceiver extends BroadcastReceiver {
-        public ServicoMarca myServiceBinder;
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("NUMERO_GERADO")) {
-                myServiceBinder.getMarca(lista, marcas, adapter);
-            }
-        }
-    }
-    public ServiceConnection myConnection = new ServiceConnection() {
-        public void onServiceConnected(ComponentName className, IBinder binder) {
-            myReceiver.myServiceBinder = ((ServicoMarca.ServicoBinder) binder).getService();
-            Log.d("ServiceConnection", "connected");
-        }
-
-        public void onServiceDisconnected(ComponentName className) {
-            Log.d("ServiceConnection", "disconnected");
-            myReceiver.myServiceBinder = null;
-        }
-    };
-    MyReceiver myReceiver = new MyReceiver();
+//    public class MyReceiver extends BroadcastReceiver {
+//        public ServicoMarca myServiceBinder;
+//
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            if (intent.getAction().equals("NUMERO_GERADO")) {
+//                myServiceBinder.getMarca(lista, marcas, adapter);
+//            }
+//        }
+//    }
+//    public ServiceConnection myConnection = new ServiceConnection() {
+//        public void onServiceConnected(ComponentName className, IBinder binder) {
+//            myReceiver.myServiceBinder = ((ServicoMarca.ServicoBinder) binder).getService();
+//            Log.d("ServiceConnection", "connected");
+//        }
+//
+//        public void onServiceDisconnected(ComponentName className) {
+//            Log.d("ServiceConnection", "disconnected");
+//            myReceiver.myServiceBinder = null;
+//        }
+//    };
+//    MyReceiver myReceiver = new MyReceiver();
     ArrayAdapter<Marca> adapter;
     LinkedList<Marca> marcas;
     ListView lista;
-    final static int CONSULTA_SCREEN = 123;
+    final static int CONSULTA_VEICULO_SCREEN = 1;
+    final static int CADASTRO_VEICULO_SCREEN = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +56,9 @@ public class MainActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
-        registerReceiver(myReceiver,
-                new IntentFilter("NUMERO_GERADO"));
-        this.doBindService();
+//        registerReceiver(myReceiver,
+//                new IntentFilter("NUMERO_GERADO"));
+//        this.doBindService();
 
         marcas = new LinkedList<>();
         adapter = new ArrayAdapter<>(this,
@@ -67,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
         lista.setAdapter( adapter );
     }
 
-    public void doBindService() {
-        Intent intent = new Intent(this, ServicoMarca.class);
-        bindService(intent, myConnection, Context.BIND_AUTO_CREATE);
-    }
+//    public void doBindService() {
+//        Intent intent = new Intent(this, ServicoMarca.class);
+//        bindService(intent, myConnection, Context.BIND_AUTO_CREATE);
+//    }
 
     @Override
     public void onActivityResult(int code,
@@ -97,10 +98,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToConsultaVeiculo(View v) {
         Intent intent = new Intent(this, ConsultaVeiculo.class);
-        startActivityForResult(intent, CONSULTA_SCREEN);
+        startActivityForResult(intent, CONSULTA_VEICULO_SCREEN);
     }
 
     public void goToCadastroVeiculo(View v) {
-
+        Intent intent = new Intent(this, CadastroVeiculo.class);
+        startActivityForResult(intent, CADASTRO_VEICULO_SCREEN);
     }
 }
