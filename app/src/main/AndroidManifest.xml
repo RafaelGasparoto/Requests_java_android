@@ -16,6 +16,14 @@
         android:theme="@style/Theme.Prova_2_dispositivos_moveis"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <service
+            android:name=".ServicoLocador"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity
+            android:name=".CadastroLocador"
+            android:exported="false" />
         <activity
             android:name=".CadastroVeiculo"
             android:exported="false" />
@@ -23,7 +31,7 @@
         <service
             android:name=".ServicoVeiculo"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity
             android:name=".ConsultaVeiculo"
@@ -35,11 +43,12 @@
             android:exported="true" />
 
         <receiver
-            android:name=".MainActivity$MyReceiver"
+            android:name=".ConsultaVeiculo$MyReceiverVeiculos"
             android:enabled="true"
             android:exported="true" />
+
         <receiver
-            android:name=".ConsultaVeiculo$MyReceiverVeiculos"
+            android:name=".CadastroLocador$MyReceiverLocador"
             android:enabled="true"
             android:exported="true" />
 

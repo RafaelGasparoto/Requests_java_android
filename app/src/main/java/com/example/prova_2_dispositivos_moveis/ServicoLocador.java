@@ -19,29 +19,29 @@ import java.util.LinkedList;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class ServicoVeiculo extends Service {
+public class ServicoLocador extends Service {
     Gson gson;
 
-    public ServicoVeiculo() {
+    public ServicoLocador() {
     }
 
-    class VeiculoBinder extends Binder {
-        public ServicoVeiculo getService() {
-            return ServicoVeiculo.this;
+    class LocadorBinder extends Binder {
+        public ServicoLocador getService() {
+            return ServicoLocador.this;
         }
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        return new ServicoVeiculo.VeiculoBinder();
+        return new ServicoLocador.LocadorBinder();
     }
 
-    public void getVeiculos(ListView lista, LinkedList<Veiculo> veiculos, ArrayAdapter<Veiculo> adapter) {
+    public void getLocador(ListView lista, LinkedList<Locador> locador, ArrayAdapter<Locador> adapter) {
         GsonBuilder bld = new GsonBuilder();
         gson = bld.create();
 
         try {
-            URL url = new URL("https://argo.td.utfpr.edu.br/locadora-war/ws/veiculo");
+            URL url = new URL("https://argo.td.utfpr.edu.br/locadora-war/ws/locador");
             HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
             if (con.getResponseCode() == 200) {
                 String resp = "";
@@ -53,12 +53,12 @@ public class ServicoVeiculo extends Service {
                         resp += linha;
                     }
                 } while (linha != null);
-                Veiculo[] value = gson.fromJson(resp, Veiculo[].class);
+                Locador[] value = gson.fromJson(resp, Locador[].class);
 
                 if (value != null) {
-                    veiculos.clear();
-                    for (Veiculo v : value)
-                        veiculos.add(v);
+                    locador.clear();
+                    for (Locador l : value)
+                        locador.add(l);
                 }
                 lista.post(new Runnable() {
                     public void run() {
@@ -71,12 +71,12 @@ public class ServicoVeiculo extends Service {
         }
     }
 
-    public void postVeiculo(Veiculo veiculo) {
+    public void postLocador(Locador locador) {
         GsonBuilder bld = new GsonBuilder();
         gson = bld.create();
-        String json = gson.toJson(veiculo);
+        String json = gson.toJson(locador);
         try {
-            URL url = new URL("https://argo.td.utfpr.edu.br/locadora-war/ws/veiculo");
+            URL url = new URL("https://argo.td.utfpr.edu.br/locadora-war/ws/locador");
             HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("content-type", "application/json");
