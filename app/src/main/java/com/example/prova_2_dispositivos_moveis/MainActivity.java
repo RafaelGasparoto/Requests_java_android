@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToConsultaLocador(View v) {
-        Intent intent = new Intent(this, CadastroVeiculo.class);
+        Intent intent = new Intent(this, ConsultaLocador.class);
         startActivityForResult(intent, CONSULTA_LOCADOR_SCREEN);
     }
 }

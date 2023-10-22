@@ -36,7 +36,7 @@ public class ServicoLocador extends Service {
         return new ServicoLocador.LocadorBinder();
     }
 
-    public void getLocador(ListView lista, LinkedList<Locador> locador, ArrayAdapter<Locador> adapter) {
+    public void getLocadores(ListView lista, LinkedList<Locador> locador, ArrayAdapter<Locador> adapter) {
         GsonBuilder bld = new GsonBuilder();
         gson = bld.create();
 

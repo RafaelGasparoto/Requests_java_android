@@ -1,5 +1,7 @@
 package com.example.prova_2_dispositivos_moveis;
 
+import androidx.annotation.NonNull;
+
 public class Locador {
     String nome, cep, complemento, cpf, email, localidade, logradouro, numero, telefone, uf;
 
@@ -16,4 +18,9 @@ public class Locador {
         this.uf = uf;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return nome + " | " + cpf;
+    }
 }
