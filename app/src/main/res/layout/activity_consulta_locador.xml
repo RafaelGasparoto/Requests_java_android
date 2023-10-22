@@ -12,21 +12,43 @@
         android:orientation="vertical"
         android:gravity="center">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
+            android:textAlignment="center"
             android:text="Consulta de veiculos"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="click"
-            android:text="Consultar"
-            tools:ignore="MissingConstraints" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="CPF"
+            android:id="@+id/cpf_consulta"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|bottom"
+            android:orientation="vertical"
+            >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="getLocadorByCpf"
+                android:text="Consultar Por CPF"
+                tools:ignore="MissingConstraints"
+                android:layout_gravity="end"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="getLocadores"
+                android:text="Consultar Todos"
+                tools:ignore="MissingConstraints"
+                android:layout_gravity="end"/>
+        </LinearLayout>
     </LinearLayout>
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lista_locadores"
         tools:ignore="MissingConstraints" />

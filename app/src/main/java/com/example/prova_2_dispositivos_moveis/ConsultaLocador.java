@@ -13,6 +13,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.LinkedList;
@@ -25,6 +26,11 @@ public class ConsultaLocador extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("GET_LOCADORES")) {
                 myServiceBinder.getLocadores(lista, locadores, adapter);
+            } else if(intent.getAction().equals("GET_LOCADOR_CPF")) {
+                String cpf = intent.getStringExtra("CPF");
+                if(!cpf.isEmpty()) {
+                    myServiceBinder.getLocadorByCpf(lista, locadores, adapter, cpf);
+                }
             }
         }
     }
@@ -51,6 +57,8 @@ public class ConsultaLocador extends AppCompatActivity {
         setContentView(R.layout.activity_consulta_locador);
         registerReceiver(myReceiver,
                 new IntentFilter("GET_LOCADORES"));
+        registerReceiver(myReceiver,
+                new IntentFilter("GET_LOCADOR_CPF"));
         this.doBindService();
         this.makeListView();
 
@@ -73,8 +81,15 @@ public class ConsultaLocador extends AppCompatActivity {
         bindService(intent, myConnection, Context.BIND_AUTO_CREATE);
     }
 
-    public void click(View v) {
+    public void getLocadores(View v) {
         Intent intent = new Intent("GET_LOCADORES");
+        sendBroadcast(intent);
+    }
+
+    public void getLocadorByCpf(View v) {
+        EditText editTextCpf = findViewById(R.id.cpf_consulta);
+        Intent intent = new Intent("GET_LOCADOR_CPF");
+        intent.putExtra("CPF", editTextCpf.getText().toString());
         sendBroadcast(intent);
     }
 }

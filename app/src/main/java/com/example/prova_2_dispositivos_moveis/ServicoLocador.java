@@ -36,6 +36,41 @@ public class ServicoLocador extends Service {
         return new ServicoLocador.LocadorBinder();
     }
 
+    public void getLocadorByCpf(ListView lista, LinkedList<Locador> locador, ArrayAdapter<Locador> adapter, String cpf) {
+        GsonBuilder bld = new GsonBuilder();
+        gson = bld.create();
+
+        try {
+            String ur = String.format("https://argo.td.utfpr.edu.br/locadora-war/ws/locador/%s", cpf);
+            URL url = new URL(ur);
+            HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+            if (con.getResponseCode() == 200) {
+                String resp = "";
+                String linha;
+                BufferedReader buf = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                do {
+                    linha = buf.readLine();
+                    if (linha != null) {
+                        resp += linha;
+                    }
+                } while (linha != null);
+                Locador value = gson.fromJson(resp, Locador.class);
+
+                if (value != null) {
+                    locador.clear();
+                    locador.add(value);
+                }
+                lista.post(new Runnable() {
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
     public void getLocadores(ListView lista, LinkedList<Locador> locador, ArrayAdapter<Locador> adapter) {
         GsonBuilder bld = new GsonBuilder();
         gson = bld.create();
