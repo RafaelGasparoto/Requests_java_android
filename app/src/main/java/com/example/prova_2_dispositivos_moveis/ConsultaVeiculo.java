@@ -13,6 +13,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.LinkedList;
@@ -26,6 +27,11 @@ public class ConsultaVeiculo extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("GET_VEICULOS")) {
                 myServiceBinder.getVeiculos(lista, veiculos, adapter);
+            } else if (intent.getAction().equals("GET_VEICULO_PLACA")) {
+                String placa = intent.getStringExtra("PLACA");
+                if(!placa.isEmpty()) {
+                    myServiceBinder.getVeiculoByPlaca(lista, veiculos, adapter, placa);
+                }
             }
         }
     }
@@ -52,6 +58,8 @@ public class ConsultaVeiculo extends AppCompatActivity {
         setContentView(R.layout.activity_consulta_veiculo);
         registerReceiver(myReceiver,
                 new IntentFilter("GET_VEICULOS"));
+        registerReceiver(myReceiver,
+                new IntentFilter("GET_VEICULO_PLACA"));
         this.doBindService();
         this.makeListView();
 
@@ -75,8 +83,15 @@ public class ConsultaVeiculo extends AppCompatActivity {
         bindService(intent, myConnection, Context.BIND_AUTO_CREATE);
     }
 
-    public void click(View v) {
+    public void getVeiculos(View v) {
         Intent intent = new Intent("GET_VEICULOS");
+        sendBroadcast(intent);
+    }
+
+    public void getVeiculoByPlaca(View v) {
+        EditText editTextCpf = findViewById(R.id.placa_consulta);
+        Intent intent = new Intent("GET_VEICULO_PLACA");
+        intent.putExtra("PLACA", editTextCpf.getText().toString());
         sendBroadcast(intent);
     }
 }

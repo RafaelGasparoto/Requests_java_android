@@ -36,6 +36,41 @@ public class ServicoVeiculo extends Service {
         return new ServicoVeiculo.VeiculoBinder();
     }
 
+    public void getVeiculoByPlaca(ListView lista, LinkedList<Veiculo> veiculos, ArrayAdapter<Veiculo> adapter, String placa) {
+        GsonBuilder bld = new GsonBuilder();
+        gson = bld.create();
+
+        try {
+            String ur = String.format("https://argo.td.utfpr.edu.br/locadora-war/ws/veiculo/%s", placa);
+            URL url = new URL(ur);
+            HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+            if (con.getResponseCode() == 200) {
+                String resp = "";
+                String linha;
+                BufferedReader buf = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                do {
+                    linha = buf.readLine();
+                    if (linha != null) {
+                        resp += linha;
+                    }
+                } while (linha != null);
+                Veiculo value = gson.fromJson(resp, Veiculo.class);
+
+                if (value != null) {
+                    veiculos.clear();
+                    veiculos.add(value);
+                }
+                lista.post(new Runnable() {
+                    public void run() {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
     public void getVeiculos(ListView lista, LinkedList<Veiculo> veiculos, ArrayAdapter<Veiculo> adapter) {
         GsonBuilder bld = new GsonBuilder();
         gson = bld.create();
