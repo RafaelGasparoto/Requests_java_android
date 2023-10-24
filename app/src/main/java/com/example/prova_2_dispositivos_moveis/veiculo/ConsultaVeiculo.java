@@ -1,4 +1,4 @@
-package com.example.prova_2_dispositivos_moveis;
+package com.example.prova_2_dispositivos_moveis.veiculo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,16 +10,16 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import java.io.Serializable;
+import com.example.prova_2_dispositivos_moveis.MainActivity;
+import com.example.prova_2_dispositivos_moveis.R;
+
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class ConsultaVeiculo extends AppCompatActivity {
 

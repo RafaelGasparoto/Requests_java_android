@@ -1,4 +1,4 @@
-package com.example.prova_2_dispositivos_moveis;
+package com.example.prova_2_dispositivos_moveis.veiculo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,13 +12,10 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import java.util.LinkedList;
+import com.example.prova_2_dispositivos_moveis.R;
 
 public class CadastroVeiculo extends AppCompatActivity {
     public class MyReceiverVeiculos extends BroadcastReceiver {

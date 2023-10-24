@@ -2,27 +2,21 @@ package com.example.prova_2_dispositivos_moveis;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
-import java.util.LinkedList;
+import com.example.prova_2_dispositivos_moveis.locador.CadastroLocador;
+import com.example.prova_2_dispositivos_moveis.locador.ConsultaLocador;
+import com.example.prova_2_dispositivos_moveis.veiculo.CadastroVeiculo;
+import com.example.prova_2_dispositivos_moveis.veiculo.ConsultaVeiculo;
 
 public class MainActivity extends AppCompatActivity {
     final static int CONSULTA_VEICULO_SCREEN = 1;
-    final static int CADASTRO_VEICULO_SCREEN = 2;
+    public final static int CADASTRO_VEICULO_SCREEN = 2;
     final static int CONSULTA_LOCADOR_SCREEN = 3;
-    final static int CADASTRO_LOCADOR_SCREEN = 4;
+    public final static int CADASTRO_LOCADOR_SCREEN = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

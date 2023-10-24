@@ -1,5 +1,7 @@
-package com.example.prova_2_dispositivos_moveis;
+package com.example.prova_2_dispositivos_moveis.veiculo;
 
+
+import com.example.prova_2_dispositivos_moveis.Marca;
 
 import java.io.Serializable;
 

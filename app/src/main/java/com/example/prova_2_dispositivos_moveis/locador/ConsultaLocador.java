@@ -1,4 +1,4 @@
-package com.example.prova_2_dispositivos_moveis;
+package com.example.prova_2_dispositivos_moveis.locador;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +15,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.example.prova_2_dispositivos_moveis.MainActivity;
+import com.example.prova_2_dispositivos_moveis.R;
 
 import java.util.LinkedList;
 

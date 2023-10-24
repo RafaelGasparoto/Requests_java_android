@@ -1,4 +1,4 @@
-package com.example.prova_2_dispositivos_moveis;
+package com.example.prova_2_dispositivos_moveis.veiculo;
 
 import android.app.Service;
 import android.content.Intent;
@@ -16,7 +16,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import javax.net.ssl.HttpsURLConnection;
 

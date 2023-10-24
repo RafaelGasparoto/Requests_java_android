@@ -1,4 +1,4 @@
-package com.example.prova_2_dispositivos_moveis;
+package com.example.prova_2_dispositivos_moveis.locador;
 
 import android.app.Service;
 import android.content.Intent;
