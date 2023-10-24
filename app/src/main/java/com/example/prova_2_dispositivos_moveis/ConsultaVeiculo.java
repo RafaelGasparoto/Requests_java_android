@@ -69,6 +69,12 @@ public class ConsultaVeiculo extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(myReceiver);
+    }
+
     private void listenSelectVeiculo() {
         lista.setOnItemLongClickListener((adapterView, view, pos, id) -> {
             Intent it = new Intent(ConsultaVeiculo.this, CadastroVeiculo.class);

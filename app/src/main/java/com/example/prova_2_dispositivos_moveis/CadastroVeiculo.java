@@ -62,6 +62,12 @@ public class CadastroVeiculo extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(myReceiver);
+    }
+
     private void registerReceivers() {
         registerReceiver(myReceiver,
                 new IntentFilter("POST_VEICULO"));

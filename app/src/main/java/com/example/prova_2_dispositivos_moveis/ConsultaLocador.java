@@ -61,6 +61,12 @@ public class ConsultaLocador extends AppCompatActivity {
         listenSelectLocador();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(myReceiver);
+    }
+
     private void registerReceivers() {
         registerReceiver(myReceiver,
                 new IntentFilter("GET_LOCADORES"));

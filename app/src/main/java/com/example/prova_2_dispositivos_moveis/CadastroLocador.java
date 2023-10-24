@@ -68,6 +68,12 @@ public class CadastroLocador extends AppCompatActivity {
             setVeiculoToEdit();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(myReceiver);
+    }
+
     public void registerReceivers() {
         registerReceiver(myReceiver,
                 new IntentFilter("POST_LOCADOR"));
