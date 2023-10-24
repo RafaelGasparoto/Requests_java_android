@@ -47,4 +47,26 @@
         android:onClick="goToCadastroLocador"
         android:text="Cadastro Locador" />
 
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:text="Locação"
+        android:textAlignment="center"
+        android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/consulta_locacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="goToConsultaLocacao"
+        android:text="Consulta Locação" />
+
+    <Button
+        android:id="@+id/cadastro_locacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="goToCadastroLocacao"
+        android:text="Cadastro Locação" />
 </androidx.appcompat.widget.LinearLayoutCompat>

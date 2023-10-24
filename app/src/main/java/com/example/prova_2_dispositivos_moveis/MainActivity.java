@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 
+import com.example.prova_2_dispositivos_moveis.locacao.CadastroLocacao;
+import com.example.prova_2_dispositivos_moveis.locacao.ConsultaLocacao;
 import com.example.prova_2_dispositivos_moveis.locador.CadastroLocador;
 import com.example.prova_2_dispositivos_moveis.locador.ConsultaLocador;
 import com.example.prova_2_dispositivos_moveis.veiculo.CadastroVeiculo;
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     public final static int CADASTRO_VEICULO_SCREEN = 2;
     final static int CONSULTA_LOCADOR_SCREEN = 3;
     public final static int CADASTRO_LOCADOR_SCREEN = 4;
+    public final static int CADASTRO_LOCACAO_SCREEN = 5;
+    public final static int CONSULTA_LOCACAO_SCREEN = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,5 +55,15 @@ public class MainActivity extends AppCompatActivity {
     public void goToConsultaLocador(View v) {
         Intent intent = new Intent(this, ConsultaLocador.class);
         startActivityForResult(intent, CONSULTA_LOCADOR_SCREEN);
+    }
+
+    public void goToCadastroLocacao(View v) {
+        Intent intent = new Intent(this, CadastroLocacao.class);
+        startActivityForResult(intent, CADASTRO_LOCACAO_SCREEN);
+    }
+
+    public void goToConsultaLocacao(View v) {
+        Intent intent = new Intent(this, ConsultaLocacao.class);
+        startActivityForResult(intent, CONSULTA_LOCACAO_SCREEN);
     }
 }
