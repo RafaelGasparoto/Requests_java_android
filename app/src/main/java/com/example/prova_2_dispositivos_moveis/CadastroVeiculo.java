@@ -47,27 +47,26 @@ public class CadastroVeiculo extends AppCompatActivity {
     };
     CadastroVeiculo.MyReceiverVeiculos myReceiver = new CadastroVeiculo.MyReceiverVeiculos();
     Veiculo veiculo;
-
-    EditText idModelo;
-    EditText ano;
-    EditText cor;
-    EditText placa;
+    EditText idModelo, ano, cor, placa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         veiculo = (Veiculo) getIntent().getSerializableExtra("VEICULO_TO_EDIT");
         setContentView(R.layout.activity_cadastro_veiculo);
-        registerReceiver(myReceiver,
-                new IntentFilter("POST_VEICULO"));
-        registerReceiver(myReceiver,
-                new IntentFilter("PUT_VEICULO"));
+        registerReceivers();
         doBindService();
         getEditText();
         if(veiculo != null) {
             setVeiculoToEdit();
         }
+    }
+
+    private void registerReceivers() {
+        registerReceiver(myReceiver,
+                new IntentFilter("POST_VEICULO"));
+        registerReceiver(myReceiver,
+                new IntentFilter("PUT_VEICULO"));
     }
 
     public void setVeiculoToEdit() {

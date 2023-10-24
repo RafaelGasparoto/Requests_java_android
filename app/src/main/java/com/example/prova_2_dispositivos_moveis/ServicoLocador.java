@@ -41,8 +41,8 @@ public class ServicoLocador extends Service {
         gson = bld.create();
 
         try {
-            String ur = String.format("https://argo.td.utfpr.edu.br/locadora-war/ws/locador/%s", cpf);
-            URL url = new URL(ur);
+            String endPoint = String.format("https://argo.td.utfpr.edu.br/locadora-war/ws/locador/%s", cpf);
+            URL url = new URL(endPoint);
             HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
             if (con.getResponseCode() == 200) {
                 String resp = "";
@@ -114,6 +114,26 @@ public class ServicoLocador extends Service {
             URL url = new URL("https://argo.td.utfpr.edu.br/locadora-war/ws/locador");
             HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
             con.setRequestMethod("POST");
+            con.setRequestProperty("content-type", "application/json");
+            PrintWriter pw = new PrintWriter(con.getOutputStream());
+            pw.println(json);
+            pw.flush();
+            con.connect();
+            Log.d("ResponseCode", "Http " + con.getResponseCode());
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
+    public void putLocador(Locador locador) {
+        GsonBuilder bld = new GsonBuilder();
+        gson = bld.create();
+        String json = gson.toJson(locador);
+        try {
+            String endPoint = String.format("https://argo.td.utfpr.edu.br/locadora-war/ws/locador/%s", locador.cpf);
+            URL url = new URL(endPoint);
+            HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+            con.setRequestMethod("PUT");
             con.setRequestProperty("content-type", "application/json");
             PrintWriter pw = new PrintWriter(con.getOutputStream());
             pw.println(json);

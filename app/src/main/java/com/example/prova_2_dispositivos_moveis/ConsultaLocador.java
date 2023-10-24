@@ -55,19 +55,30 @@ public class ConsultaLocador extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consulta_locador);
+        registerReceivers();
+        doBindService();
+        makeListView();
+        listenSelectLocador();
+    }
+
+    private void registerReceivers() {
         registerReceiver(myReceiver,
                 new IntentFilter("GET_LOCADORES"));
         registerReceiver(myReceiver,
                 new IntentFilter("GET_LOCADOR_CPF"));
-        this.doBindService();
-        this.makeListView();
+    }
 
+    private void listenSelectLocador() {
+        lista.setOnItemLongClickListener((adapterView, view, pos, id) -> {
+            Intent it = new Intent(ConsultaLocador.this, CadastroLocador.class);
+            it.putExtra("LOCADOR_TO_EDIT", locadores.get(pos));
+            startActivityForResult(it, MainActivity.CADASTRO_LOCADOR_SCREEN);
+            return true;
+        });
     }
 
     public void makeListView() {
         locadores = new LinkedList<>();
-        locadores.add(new Locador("a", "a", "a", "a", "a", "a", "s", "d", "df", "g"
-        ));
         adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 locadores);

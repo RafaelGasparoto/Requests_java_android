@@ -80,9 +80,6 @@ public class ConsultaVeiculo extends AppCompatActivity {
 
     public void makeListView() {
         veiculos = new ArrayList<>();
-        veiculos.add(new Veiculo(
-                10, 1, "PRETA", "AAA"
-        ));
         adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 veiculos);

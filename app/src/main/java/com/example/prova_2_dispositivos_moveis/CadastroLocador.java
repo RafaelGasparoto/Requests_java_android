@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 public class CadastroLocador extends AppCompatActivity {
@@ -25,6 +26,8 @@ public class CadastroLocador extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("POST_LOCADOR")) {
                 myServiceBinder.postLocador(locador);
+            } else if (intent.getAction().equals("PUT_LOCADOR")) {
+                myServiceBinder.putLocador(locador);
             }
         }
     }
@@ -46,12 +49,32 @@ public class CadastroLocador extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_locador);
+        locador = (Locador) getIntent().getSerializableExtra("LOCADOR_TO_EDIT");
         registerReceiver(myReceiver,
                 new IntentFilter("POST_LOCADOR"));
+        registerReceiver(myReceiver,
+                new IntentFilter("PUT_LOCADOR"));
+
         getEditText();
         doBindService();
+        if (locador != null)
+            setVeiculoToEdit();
     }
-
+    public void setVeiculoToEdit() {
+        nome.setText(locador.getNome());
+        cpf.setText(locador.getCpf());
+        telefone.setText(locador.getTelefone());
+        email.setText(locador.getEmail());
+        cep.setText(locador.getCep());
+        cidade.setText(locador.getLocalidade());
+        logradouro.setText(locador.getLogradouro());
+        numero.setText(locador.getNumero());
+        complemento.setText(locador.getComplemento());
+        uf.setText(locador.getUf());
+        cpf.setEnabled(false);
+        Button button = findViewById(R.id.botão_cadastro_locador);
+        button.setText("Atualizar cadastro");
+    }
     private void getEditText() {
         nome = findViewById(R.id.nome);
         cpf = findViewById(R.id.cpf);
@@ -82,9 +105,15 @@ public class CadastroLocador extends AppCompatActivity {
 
     public void cadastrarLocador(View v) {
         if (!checar_campo_vazio()) {
-            locador = buildLocador();
-            Intent intent = new Intent("POST_LOCADOR");
-            sendBroadcast(intent);
+            if (locador == null) {
+                locador = buildLocador();
+                Intent intent = new Intent("POST_LOCADOR");
+                sendBroadcast(intent);
+            } else {
+                locador = buildLocador();
+                Intent intent = new Intent("PUT_LOCADOR");
+                sendBroadcast(intent);
+            }
         }
     }
 
