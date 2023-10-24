@@ -10,12 +10,15 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class ConsultaVeiculo extends AppCompatActivity {
@@ -29,7 +32,7 @@ public class ConsultaVeiculo extends AppCompatActivity {
                 myServiceBinder.getVeiculos(lista, veiculos, adapter);
             } else if (intent.getAction().equals("GET_VEICULO_PLACA")) {
                 String placa = intent.getStringExtra("PLACA");
-                if(!placa.isEmpty()) {
+                if (!placa.isEmpty()) {
                     myServiceBinder.getVeiculoByPlaca(lista, veiculos, adapter, placa);
                 }
             }
@@ -49,7 +52,7 @@ public class ConsultaVeiculo extends AppCompatActivity {
     };
     MyReceiverVeiculos myReceiver = new MyReceiverVeiculos();
     ArrayAdapter<Veiculo> adapter;
-    LinkedList<Veiculo> veiculos;
+    ArrayList<Veiculo> veiculos;
     ListView lista;
 
     @Override
@@ -62,11 +65,21 @@ public class ConsultaVeiculo extends AppCompatActivity {
                 new IntentFilter("GET_VEICULO_PLACA"));
         this.doBindService();
         this.makeListView();
+        this.listenSelectVeiculo();
 
     }
 
+    private void listenSelectVeiculo() {
+        lista.setOnItemLongClickListener((adapterView, view, pos, id) -> {
+            Intent it = new Intent(ConsultaVeiculo.this, CadastroVeiculo.class);
+            it.putExtra("VEICULO_TO_EDIT", veiculos.get(pos));
+            startActivityForResult(it, MainActivity.CADASTRO_VEICULO_SCREEN);
+            return true;
+        });
+    }
+
     public void makeListView() {
-        veiculos = new LinkedList<>();
+        veiculos = new ArrayList<>();
         veiculos.add(new Veiculo(
                 10, 1, "PRETA", "AAA"
         ));

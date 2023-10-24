@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Cadastro de Locadores"
+        android:text="Cadastro de Veiculos"
         android:textSize="20sp" />
 
     <EditText
@@ -44,5 +44,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:text="Cadastrar"
+        android:id="@+id/botão_cadastro"
         android:onClick="cadastrarVeiculo"/>
 </LinearLayout>

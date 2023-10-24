@@ -1,7 +1,9 @@
 package com.example.prova_2_dispositivos_moveis;
 
 
-public class Veiculo {
+import java.io.Serializable;
+
+public class Veiculo implements Serializable {
     public Veiculo(int ano, int idModelo, String cor, String placa) {
         this.ano = ano;
         this.idModelo = idModelo;
@@ -9,7 +11,41 @@ public class Veiculo {
         this.placa = placa;
     }
 
-    public int ano, idModelo;
+    public int ano;
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public int getIdModelo() {
+        return idModelo;
+    }
+
+    public void setIdModelo(int idModelo) {
+        this.idModelo = idModelo;
+    }
+
+    public String getCor() {
+        return cor;
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+
+    public int idModelo;
     public String cor, placa;
 
 

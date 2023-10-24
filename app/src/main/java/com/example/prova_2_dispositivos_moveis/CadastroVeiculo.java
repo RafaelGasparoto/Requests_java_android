@@ -13,8 +13,10 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.LinkedList;
 
@@ -26,6 +28,8 @@ public class CadastroVeiculo extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("POST_VEICULO")) {
                 myServiceBinder.postVeiculo(veiculo);
+            } else if (intent.getAction().equals("PUT_VEICULO")) {
+                myServiceBinder.putVeiculo(veiculo);
             }
         }
     }
@@ -52,11 +56,28 @@ public class CadastroVeiculo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        veiculo = (Veiculo) getIntent().getSerializableExtra("VEICULO_TO_EDIT");
         setContentView(R.layout.activity_cadastro_veiculo);
         registerReceiver(myReceiver,
                 new IntentFilter("POST_VEICULO"));
+        registerReceiver(myReceiver,
+                new IntentFilter("PUT_VEICULO"));
         doBindService();
         getEditText();
+        if(veiculo != null) {
+            setVeiculoToEdit();
+        }
+    }
+
+    public void setVeiculoToEdit() {
+        idModelo.setText(String.valueOf(veiculo.getIdModelo()));
+        ano.setText(String.valueOf(veiculo.getAno()));
+        cor.setText(veiculo.getCor());
+        placa.setText(veiculo.getPlaca());
+        placa.setEnabled(false);
+        Button button = findViewById(R.id.botão_cadastro);
+        button.setText("Atualizar cadastro");
     }
 
     private void getEditText() {
@@ -67,7 +88,7 @@ public class CadastroVeiculo extends AppCompatActivity {
     }
 
     private Veiculo buildVeiculo() {
-         return new Veiculo(
+        return new Veiculo(
                 Integer.parseInt(String.valueOf(ano.getText())),
                 Integer.parseInt(String.valueOf(idModelo.getText())),
                 cor.getText().toString(),
@@ -76,14 +97,20 @@ public class CadastroVeiculo extends AppCompatActivity {
     }
 
     private boolean checar_campo_vazio() {
-        return placa.getText().toString().isEmpty() || ano.getText().toString().isEmpty() || cor.getText().toString().isEmpty()|| idModelo.getText().toString().isEmpty();
+        return placa.getText().toString().isEmpty() || ano.getText().toString().isEmpty() || cor.getText().toString().isEmpty() || idModelo.getText().toString().isEmpty();
     }
 
     public void cadastrarVeiculo(View v) {
         if (!checar_campo_vazio()) {
-            veiculo = buildVeiculo();
-            Intent intent = new Intent("POST_VEICULO");
-            sendBroadcast(intent);
+            if(veiculo == null) {
+                veiculo = buildVeiculo();
+                Intent intent = new Intent("POST_VEICULO");
+                sendBroadcast(intent);
+            } else {
+                veiculo = buildVeiculo();
+                Intent intent = new Intent("PUT_VEICULO");
+                sendBroadcast(intent);
+            }
         }
     }
 

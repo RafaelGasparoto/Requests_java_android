@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -36,13 +37,13 @@ public class ServicoVeiculo extends Service {
         return new ServicoVeiculo.VeiculoBinder();
     }
 
-    public void getVeiculoByPlaca(ListView lista, LinkedList<Veiculo> veiculos, ArrayAdapter<Veiculo> adapter, String placa) {
+    public void getVeiculoByPlaca(ListView lista, ArrayList<Veiculo> veiculos, ArrayAdapter<Veiculo> adapter, String placa) {
         GsonBuilder bld = new GsonBuilder();
         gson = bld.create();
 
         try {
-            String ur = String.format("https://argo.td.utfpr.edu.br/locadora-war/ws/veiculo/%s", placa);
-            URL url = new URL(ur);
+            String endPoint = String.format("https://argo.td.utfpr.edu.br/locadora-war/ws/veiculo/%s", placa);
+            URL url = new URL(endPoint);
             HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
             if (con.getResponseCode() == 200) {
                 String resp = "";
@@ -71,7 +72,7 @@ public class ServicoVeiculo extends Service {
         }
     }
 
-    public void getVeiculos(ListView lista, LinkedList<Veiculo> veiculos, ArrayAdapter<Veiculo> adapter) {
+    public void getVeiculos(ListView lista, ArrayList<Veiculo> veiculos, ArrayAdapter<Veiculo> adapter) {
         GsonBuilder bld = new GsonBuilder();
         gson = bld.create();
 
@@ -114,6 +115,26 @@ public class ServicoVeiculo extends Service {
             URL url = new URL("https://argo.td.utfpr.edu.br/locadora-war/ws/veiculo");
             HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
             con.setRequestMethod("POST");
+            con.setRequestProperty("content-type", "application/json");
+            PrintWriter pw = new PrintWriter(con.getOutputStream());
+            pw.println(json);
+            pw.flush();
+            con.connect();
+            Log.d("ResponseCode", "Http " + con.getResponseCode());
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+    }
+
+    public void putVeiculo(Veiculo veiculo) {
+        GsonBuilder bld = new GsonBuilder();
+        gson = bld.create();
+        String json = gson.toJson(veiculo);
+        try {
+            String endPoint = String.format("https://argo.td.utfpr.edu.br/locadora-war/ws/veiculo/%s", veiculo.placa);
+            URL url = new URL(endPoint);
+            HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+            con.setRequestMethod("PUT");
             con.setRequestProperty("content-type", "application/json");
             PrintWriter pw = new PrintWriter(con.getOutputStream());
             pw.println(json);
