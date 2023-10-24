@@ -85,7 +85,7 @@ public class Locador implements Serializable {
         this.uf = uf;
     }
 
-    String nome, cep, complemento, cpf, email, localidade, logradouro, numero, telefone, uf;
+    private String nome, cep, complemento, cpf, email, localidade, logradouro, numero, telefone, uf;
 
     public Locador(String nome, String cep, String complemento, String cpf, String email, String localidade, String logradouro, String numero, String telefone, String uf) {
         this.nome = nome;

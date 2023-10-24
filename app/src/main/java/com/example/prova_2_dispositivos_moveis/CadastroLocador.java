@@ -17,6 +17,8 @@ import android.widget.EditText;
 
 public class CadastroLocador extends AppCompatActivity {
     Locador locador;
+
+    Cep cepinfo;
     EditText nome, cpf, telefone, email, cep, cidade, logradouro, numero, complemento, uf;
 
     public class MyReceiverLocador extends BroadcastReceiver {
@@ -28,6 +30,15 @@ public class CadastroLocador extends AppCompatActivity {
                 myServiceBinder.postLocador(locador);
             } else if (intent.getAction().equals("PUT_LOCADOR")) {
                 myServiceBinder.putLocador(locador);
+            } else if (intent.getAction().equals("GET_LOCADOR_CEP")) {
+                cepinfo = myServiceBinder.getLocadorCep(cep.getText().toString());
+                if(cepinfo != null) {
+                    cidade.setText(cepinfo.localidade);
+                    logradouro.setText(cepinfo.logradouro);
+                    complemento.setText(cepinfo.complemento);
+                    uf.setText(cepinfo.uf);
+                    cepinfo = null;
+                }
             }
         }
     }
@@ -50,15 +61,20 @@ public class CadastroLocador extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_locador);
         locador = (Locador) getIntent().getSerializableExtra("LOCADOR_TO_EDIT");
-        registerReceiver(myReceiver,
-                new IntentFilter("POST_LOCADOR"));
-        registerReceiver(myReceiver,
-                new IntentFilter("PUT_LOCADOR"));
-
+        registerReceivers();
         getEditText();
         doBindService();
         if (locador != null)
             setVeiculoToEdit();
+    }
+
+    public void registerReceivers() {
+        registerReceiver(myReceiver,
+                new IntentFilter("POST_LOCADOR"));
+        registerReceiver(myReceiver,
+                new IntentFilter("PUT_LOCADOR"));
+        registerReceiver(myReceiver,
+                new IntentFilter("GET_LOCADOR_CEP"));
     }
     public void setVeiculoToEdit() {
         nome.setText(locador.getNome());
@@ -126,5 +142,10 @@ public class CadastroLocador extends AppCompatActivity {
     public void doBindService() {
         Intent intent = new Intent(this, ServicoLocador.class);
         bindService(intent, myConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    public void searchCEP(View v) {
+        Intent intent = new Intent("GET_LOCADOR_CEP");
+        sendBroadcast(intent);
     }
 }

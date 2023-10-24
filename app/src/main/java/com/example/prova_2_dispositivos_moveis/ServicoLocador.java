@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -106,6 +107,44 @@ public class ServicoLocador extends Service {
         }
     }
 
+    public Cep getLocadorCep(String cep_number) {
+        Cep cep = null;
+        GsonBuilder bld = new GsonBuilder();
+        gson = bld.create();
+
+        try {
+
+            String endPoint = String.format("https:/viacep.com.br/ws/%s/json/", cep_number);
+            URL url = new URL(endPoint);
+            HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+            if (con.getResponseCode() == 200) {
+                String resp = "";
+                String linha;
+                BufferedReader buf = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                do {
+                    linha = buf.readLine();
+                    if (linha != null) {
+                        resp += linha;
+                    }
+                } while (linha != null);
+                Cep cepInfo = gson.fromJson(resp, Cep.class);
+
+                if (cepInfo != null) {
+                    cep = cepInfo;
+                }
+            } else if (con.getResponseCode() == 400) {
+                Toast toast = Toast.makeText(this, "CEP informado não existe", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        } catch (Throwable t) {
+            Toast toast = Toast.makeText(this, "Erro ao procurar pelo CEP", Toast.LENGTH_SHORT);
+            toast.show();
+            t.printStackTrace();
+        }
+
+        return cep;
+    }
+
     public void postLocador(Locador locador) {
         GsonBuilder bld = new GsonBuilder();
         gson = bld.create();
@@ -130,7 +169,7 @@ public class ServicoLocador extends Service {
         gson = bld.create();
         String json = gson.toJson(locador);
         try {
-            String endPoint = String.format("https://argo.td.utfpr.edu.br/locadora-war/ws/locador/%s", locador.cpf);
+            String endPoint = String.format("https://argo.td.utfpr.edu.br/locadora-war/ws/locador/%s", locador.getCpf());
             URL url = new URL(endPoint);
             HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
             con.setRequestMethod("PUT");
