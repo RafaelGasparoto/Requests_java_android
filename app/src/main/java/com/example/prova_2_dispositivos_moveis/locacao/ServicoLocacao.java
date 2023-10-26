@@ -110,7 +110,7 @@ public class ServicoLocacao extends Service {
         }
     }
 
-    public void postLocacao(Locacao locacao) {
+    public boolean postLocacao(Locacao locacao) {
         GsonBuilder bld = new GsonBuilder();
         gson = bld.create();
         String json = gson.toJson(locacao);
@@ -124,12 +124,21 @@ public class ServicoLocacao extends Service {
             pw.flush();
             con.connect();
             Log.d("ResponseCode", "Http " + con.getResponseCode());
+            if(con.getResponseCode() != 201) {
+                Toast toast = Toast.makeText(this, "Algum dado inserido está errado", Toast.LENGTH_SHORT);
+                toast.show();
+                return false;
+            }
         } catch (Throwable t) {
+            Toast toast = Toast.makeText(this, "Erro ao registrar cadastro", Toast.LENGTH_SHORT);
+            toast.show();
             t.printStackTrace();
+            return false;
         }
+        return true;
     }
 
-    public void putLocacao(Locacao locacao) {
+    public boolean putLocacao(Locacao locacao) {
         GsonBuilder bld = new GsonBuilder();
         gson = bld.create();
         String json = gson.toJson(locacao);
@@ -144,9 +153,18 @@ public class ServicoLocacao extends Service {
             pw.flush();
             con.connect();
             Log.d("ResponseCode", "Http " + con.getResponseCode());
+            if(con.getResponseCode() != 201) {
+                Toast toast = Toast.makeText(this, "Algum dado inserido está errado", Toast.LENGTH_SHORT);
+                toast.show();
+                return false;
+            }
         } catch (Throwable t) {
+            Toast toast = Toast.makeText(this, "Erro ao atualizar cadastro", Toast.LENGTH_SHORT);
+            toast.show();
             t.printStackTrace();
+            return false;
         }
+        return true;
     }
 
 }
