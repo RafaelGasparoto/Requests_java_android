@@ -129,8 +129,11 @@ public class ServicoLocador extends Service {
                 } while (linha != null);
                 Cep cepInfo = gson.fromJson(resp, Cep.class);
 
-                if (cepInfo != null) {
+                if (cepInfo.cep != null) {
                     cep = cepInfo;
+                } else {
+                    Toast toast = Toast.makeText(this, "CEP informado não existe", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             } else if (con.getResponseCode() == 400) {
                 Toast toast = Toast.makeText(this, "CEP informado não existe", Toast.LENGTH_SHORT);
@@ -145,7 +148,7 @@ public class ServicoLocador extends Service {
         return cep;
     }
 
-    public void postLocador(Locador locador) {
+    public boolean postLocador(Locador locador) {
         GsonBuilder bld = new GsonBuilder();
         gson = bld.create();
         String json = gson.toJson(locador);
@@ -161,10 +164,12 @@ public class ServicoLocador extends Service {
             Log.d("ResponseCode", "Http " + con.getResponseCode());
         } catch (Throwable t) {
             t.printStackTrace();
+            return false;
         }
+        return true;
     }
 
-    public void putLocador(Locador locador) {
+    public boolean putLocador(Locador locador) {
         GsonBuilder bld = new GsonBuilder();
         gson = bld.create();
         String json = gson.toJson(locador);
@@ -181,6 +186,8 @@ public class ServicoLocador extends Service {
             Log.d("ResponseCode", "Http " + con.getResponseCode());
         } catch (Throwable t) {
             t.printStackTrace();
+            return false;
         }
+        return true;
     }
 }

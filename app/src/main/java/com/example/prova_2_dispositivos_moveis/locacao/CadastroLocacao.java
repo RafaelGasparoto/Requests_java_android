@@ -43,13 +43,14 @@ public class CadastroLocacao extends AppCompatActivity {
             if (intent.getAction().equals("POST_LOCACAO")) {
                 if(myServiceBinder.postLocacao(locacao)) {
                     finish();
+                } else {
+                    locacao = null;
                 }
             } else if (intent.getAction().equals("PUT_LOCACAO")) {
                 if(myServiceBinder.putLocacao(locacao)) {
                     finish();
                 }
             }
-            locacao = null;
         }
     }
 
@@ -136,7 +137,7 @@ public class CadastroLocacao extends AppCompatActivity {
         id.setText(Integer.toString(locacao.getId()));
         placa.setText(locacao.getPlaca());
         valor.setText(Double.toString(locacao.getValor()));
-        Button button = findViewById(R.id.botão_cadastro_locador);
+        Button button = findViewById(R.id.botão_cadastro_locacao);
         button.setText("Atualizar cadastro");
     }
 

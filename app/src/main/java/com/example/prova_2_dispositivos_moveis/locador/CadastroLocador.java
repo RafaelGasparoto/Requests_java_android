@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.prova_2_dispositivos_moveis.R;
 
@@ -29,9 +30,17 @@ public class CadastroLocador extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("POST_LOCADOR")) {
-                myServiceBinder.postLocador(locador);
+                if(myServiceBinder.postLocador(locador)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Locador cadastrado com sucesso", Toast.LENGTH_SHORT);
+                    toast.show();
+                    finish();
+                }
             } else if (intent.getAction().equals("PUT_LOCADOR")) {
-                myServiceBinder.putLocador(locador);
+                if(myServiceBinder.putLocador(locador)){
+                    Toast toast = Toast.makeText(getApplicationContext(), "Locador atualizado com sucesso", Toast.LENGTH_SHORT);
+                    toast.show();
+                    finish();
+                }
             } else if (intent.getAction().equals("GET_LOCADOR_CEP")) {
                 cepinfo = myServiceBinder.getLocadorCep(cep.getText().toString());
                 if(cepinfo != null) {
@@ -138,6 +147,9 @@ public class CadastroLocador extends AppCompatActivity {
                 Intent intent = new Intent("PUT_LOCADOR");
                 sendBroadcast(intent);
             }
+        } else {
+            Toast toast = Toast.makeText(this, "Preencha todos os campos necessários", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
