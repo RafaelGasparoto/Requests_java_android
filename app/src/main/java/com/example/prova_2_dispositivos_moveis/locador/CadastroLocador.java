@@ -35,6 +35,7 @@ public class CadastroLocador extends AppCompatActivity {
                     toast.show();
                     finish();
                 }
+                locador = null;
             } else if (intent.getAction().equals("PUT_LOCADOR")) {
                 if(myServiceBinder.putLocador(locador)){
                     Toast toast = Toast.makeText(getApplicationContext(), "Locador atualizado com sucesso", Toast.LENGTH_SHORT);

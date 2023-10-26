@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -106,7 +107,7 @@ public class ServicoVeiculo extends Service {
         }
     }
 
-    public void postVeiculo(Veiculo veiculo) {
+    public boolean postVeiculo(Veiculo veiculo) {
         GsonBuilder bld = new GsonBuilder();
         gson = bld.create();
         String json = gson.toJson(veiculo);
@@ -120,12 +121,21 @@ public class ServicoVeiculo extends Service {
             pw.flush();
             con.connect();
             Log.d("ResponseCode", "Http " + con.getResponseCode());
+            if (con.getResponseCode() != 201) {
+                Toast toast = Toast.makeText(this, "Algum dado inserido está errado", Toast.LENGTH_SHORT);
+                toast.show();
+                return false;
+            }
         } catch (Throwable t) {
+            Toast toast = Toast.makeText(this, "Houve algum erro ao cadastrar o veículo", Toast.LENGTH_SHORT);
+            toast.show();
             t.printStackTrace();
+            return false;
         }
+        return true;
     }
 
-    public void putVeiculo(Veiculo veiculo) {
+    public boolean putVeiculo(Veiculo veiculo) {
         GsonBuilder bld = new GsonBuilder();
         gson = bld.create();
         String json = gson.toJson(veiculo);
@@ -140,8 +150,15 @@ public class ServicoVeiculo extends Service {
             pw.flush();
             con.connect();
             Log.d("ResponseCode", "Http " + con.getResponseCode());
+            if(con.getResponseCode() != 200) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Id modelo pode estar errado", Toast.LENGTH_SHORT);
+                toast.show();
+                return false;
+            }
         } catch (Throwable t) {
             t.printStackTrace();
+            return false;
         }
+        return true;
     }
 }

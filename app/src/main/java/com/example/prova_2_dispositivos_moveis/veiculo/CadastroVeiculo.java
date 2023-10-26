@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.prova_2_dispositivos_moveis.R;
 
@@ -24,9 +25,18 @@ public class CadastroVeiculo extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("POST_VEICULO")) {
-                myServiceBinder.postVeiculo(veiculo);
+                if (myServiceBinder.postVeiculo(veiculo)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Veículo cadastrado com sucesso", Toast.LENGTH_SHORT);
+                    toast.show();
+                    finish();
+                }
+                veiculo = null;
             } else if (intent.getAction().equals("PUT_VEICULO")) {
-                myServiceBinder.putVeiculo(veiculo);
+                if (myServiceBinder.putVeiculo(veiculo)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Veículo atualizado com sucesso", Toast.LENGTH_SHORT);
+                    toast.show();
+                    finish();
+                }
             }
         }
     }
@@ -54,7 +64,7 @@ public class CadastroVeiculo extends AppCompatActivity {
         registerReceivers();
         doBindService();
         getEditText();
-        if(veiculo != null) {
+        if (veiculo != null) {
             setVeiculoToEdit();
         }
     }
@@ -104,7 +114,7 @@ public class CadastroVeiculo extends AppCompatActivity {
 
     public void cadastrarVeiculo(View v) {
         if (!checar_campo_vazio()) {
-            if(veiculo == null) {
+            if (veiculo == null) {
                 veiculo = buildVeiculo();
                 Intent intent = new Intent("POST_VEICULO");
                 sendBroadcast(intent);
