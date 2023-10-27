@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="veiculo_pt">Veículos</string>
+    <string name="cadastro_veiculo_pt">Cadastro Veículo</string>
+    <string name="consulta_veiculo_pt">Consulta Veículo</string>
+    <string name="locador_pt">Locador</string>
+    <string name="cadastro_locador_pt">Cadastro Locador</string>
+    <string name="consulta_locador_pt">Consulta Locador</string>
+    <string name="locacao_pt">Locação</string>
+    <string name="cadastro_locacao_pt">Cadastro Locação</string>
+    <string name="consulta_locacao_pt">Consulta Locação</string>
+    <string name="idioma_pt">PT-BR</string>
+    <string name="placa_pt">Placa</string>
+    <string name="consultar_por_placa_pt">Consultar por placa</string>
+    <string name="consultar_todos_pt">Consultar todos</string>
+</resources>

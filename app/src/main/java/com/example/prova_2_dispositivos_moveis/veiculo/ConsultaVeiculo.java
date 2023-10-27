@@ -13,8 +13,10 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.prova_2_dispositivos_moveis.MainActivity;
 import com.example.prova_2_dispositivos_moveis.R;
@@ -66,7 +68,7 @@ public class ConsultaVeiculo extends AppCompatActivity {
         this.doBindService();
         this.makeListView();
         this.listenSelectVeiculo();
-
+        setLanguage();
     }
 
     @Override
@@ -109,5 +111,24 @@ public class ConsultaVeiculo extends AppCompatActivity {
         Intent intent = new Intent("GET_VEICULO_PLACA");
         intent.putExtra("PLACA", editTextCpf.getText().toString());
         sendBroadcast(intent);
+    }
+
+    private void setLanguage() {
+        TextView consulta_veiculos = findViewById(R.id.titulo_consulta_veiculo);
+        EditText placa = findViewById(R.id.placa_consulta);
+        Button conulta_por_placa = findViewById(R.id.consulta_por_placa);
+        Button conulta_todos = findViewById(R.id.consulta_todos);
+
+       if(MainActivity.LANGAGUE.equals("PT")) {
+           consulta_veiculos.setText(R.string.consulta_veiculo_pt);
+           placa.setHint(R.string.placa_pt);
+           conulta_por_placa.setText(R.string.consultar_por_placa_pt);
+           conulta_todos.setText(R.string.consultar_todos_pt);
+       } else {
+           consulta_veiculos.setText(R.string.consulta_veiculo_en);
+           placa.setHint(R.string.placa_en);
+           conulta_por_placa.setText(R.string.consultar_por_placa_en);
+           conulta_todos.setText(R.string.consultar_todos_en);
+       }
     }
 }
