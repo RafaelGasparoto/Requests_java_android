@@ -2,12 +2,18 @@ package com.example.prova_2_dispositivos_moveis;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.prova_2_dispositivos_moveis.locacao.CadastroLocacao;
 import com.example.prova_2_dispositivos_moveis.locacao.ConsultaLocacao;
@@ -17,6 +23,35 @@ import com.example.prova_2_dispositivos_moveis.veiculo.CadastroVeiculo;
 import com.example.prova_2_dispositivos_moveis.veiculo.ConsultaVeiculo;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int WIFI_ENABLE_REQUEST = 0x1006;
+
+    private BroadcastReceiver mNetworkDetectReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            checkInternetConnection();
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+
+        unregisterReceiver(mNetworkDetectReceiver);
+        super.onDestroy();
+    }
+
+    private void checkInternetConnection() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = manager.getActiveNetworkInfo();
+        if (ni != null && ni.getState() == NetworkInfo.State.CONNECTED) {
+            Toast toast = Toast.makeText(this, "Internet conectada", Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            Toast toast = Toast.makeText(this, "Não foi encontrado conexão com internet, não é possível usar o App de forma offline", Toast.LENGTH_LONG);
+            toast.show();
+        }
+
+    }
+
     final static int CONSULTA_VEICULO_SCREEN = 1;
     public final static int CADASTRO_VEICULO_SCREEN = 2;
     final static int CONSULTA_LOCADOR_SCREEN = 3;
@@ -29,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        registerReceiver(mNetworkDetectReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -39,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int code, int result, Intent data) {
         super.onActivityResult(code, result, data);
+        if (code == WIFI_ENABLE_REQUEST) {
+
+        } else {
+            super.onActivityResult(code, result, data);
+        }
     }
 
     public void goToConsultaVeiculo(View v) {
