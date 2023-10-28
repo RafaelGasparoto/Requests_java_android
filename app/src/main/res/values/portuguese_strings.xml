@@ -17,4 +17,12 @@
     <string name="ano_pt">Ano</string>
     <string name="cor_pt">Cor</string>
     <string name="cadastrar_pt">Cadastrar</string>
+    <string name="nome_pt">Nome</string>
+    <string name="telefone_pt">Telefone</string>
+    <string name="cidade_pt">Cidade</string>
+    <string name="logradouro_pt">Logradouro</string>
+    <string name="numero_pt">Número</string>
+    <string name="complemento_pt">Complemento</string>
+    <string name="buscar_cep_pt">Buscar CEP</string>
+    <string name="consultar_por_cpf_pt">Consultar por CPF</string>
 </resources>

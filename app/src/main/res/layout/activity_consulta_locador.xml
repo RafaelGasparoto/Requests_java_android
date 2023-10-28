@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".locador.ConsultaLocador"
+    android:padding="20dp"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,8 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
+            android:id="@+id/consulta_locador"
             android:textAlignment="center"
-            android:text="Consulta de veiculos"/>
+            android:text="Consulta de locador"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -35,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="getLocadorByCpf"
                 android:text="Consultar Por CPF"
+                android:id="@+id/consulta_por_cpf"
                 tools:ignore="MissingConstraints"
                 android:layout_gravity="end"/>
             <Button
@@ -42,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="getLocadores"
                 android:text="Consultar Todos"
+                android:id="@+id/consulta_todos"
                 tools:ignore="MissingConstraints"
                 android:layout_gravity="end"/>
         </LinearLayout>

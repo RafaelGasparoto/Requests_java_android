@@ -14,9 +14,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.prova_2_dispositivos_moveis.MainActivity;
 import com.example.prova_2_dispositivos_moveis.R;
+
+import org.w3c.dom.Text;
 
 public class CadastroLocador extends AppCompatActivity {
     Locador locador;
@@ -77,7 +81,9 @@ public class CadastroLocador extends AppCompatActivity {
         getEditText();
         doBindService();
         if (locador != null)
-            setVeiculoToEdit();
+            setLocadorToEdit();
+
+        setLanguage();
     }
 
     @Override
@@ -94,7 +100,7 @@ public class CadastroLocador extends AppCompatActivity {
         registerReceiver(myReceiver,
                 new IntentFilter("GET_LOCADOR_CEP"));
     }
-    public void setVeiculoToEdit() {
+    public void setLocadorToEdit() {
         nome.setText(locador.getNome());
         cpf.setText(locador.getCpf());
         telefone.setText(locador.getTelefone());
@@ -106,8 +112,6 @@ public class CadastroLocador extends AppCompatActivity {
         complemento.setText(locador.getComplemento());
         uf.setText(locador.getUf());
         cpf.setEnabled(false);
-        Button button = findViewById(R.id.botão_cadastro_locador);
-        button.setText("Atualizar cadastro");
     }
     private void getEditText() {
         nome = findViewById(R.id.nome);
@@ -168,5 +172,33 @@ public class CadastroLocador extends AppCompatActivity {
     public void searchCEP(View v) {
         Intent intent = new Intent("GET_LOCADOR_CEP");
         sendBroadcast(intent);
+    }
+
+    private void setLanguage() {
+        Button cadastrar = findViewById(R.id.cadastrar);
+        Button buscar_cep = findViewById(R.id.buscar_cep);
+        TextView cadastro_de_locador = findViewById(R.id.cadastro_de_locador);
+
+        if(MainActivity.LANGAGUE.equals("PT")) {
+            nome.setHint(R.string.nome_pt);
+            telefone.setHint(R.string.telefone_pt);
+            cidade.setHint(R.string.cidade_pt);
+            logradouro.setHint(R.string.logradouro_pt);
+            numero.setHint(R.string.numero_pt);
+            complemento.setHint(R.string.complemento_pt);
+            cadastrar.setText(R.string.cadastrar_pt);
+            buscar_cep.setText(R.string.buscar_cep_pt);
+            cadastro_de_locador.setText(R.string.cadastro_locador_pt);
+        } else {
+            nome.setHint(R.string.nome_en);
+            telefone.setHint(R.string.telefone_en);
+            cidade.setHint(R.string.cidade_en);
+            logradouro.setHint(R.string.logradouro_en);
+            numero.setHint(R.string.numero_en);
+            complemento.setHint(R.string.complemento_en);
+            cadastrar.setText(R.string.cadastrar_en);
+            buscar_cep.setText(R.string.buscar_cep_en);
+            cadastro_de_locador.setText(R.string.cadastro_locador_en);
+        }
     }
 }

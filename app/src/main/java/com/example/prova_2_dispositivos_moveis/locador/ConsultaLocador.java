@@ -13,8 +13,10 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.prova_2_dispositivos_moveis.MainActivity;
 import com.example.prova_2_dispositivos_moveis.R;
@@ -29,9 +31,9 @@ public class ConsultaLocador extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("GET_LOCADORES")) {
                 myServiceBinder.getLocadores(lista, locadores, adapter);
-            } else if(intent.getAction().equals("GET_LOCADOR_CPF")) {
+            } else if (intent.getAction().equals("GET_LOCADOR_CPF")) {
                 String cpf = intent.getStringExtra("CPF");
-                if(!cpf.isEmpty()) {
+                if (!cpf.isEmpty()) {
                     myServiceBinder.getLocadorByCpf(lista, locadores, adapter, cpf);
                 }
             }
@@ -62,6 +64,7 @@ public class ConsultaLocador extends AppCompatActivity {
         doBindService();
         makeListView();
         listenSelectLocador();
+        setLanguage();
     }
 
     @Override
@@ -111,5 +114,20 @@ public class ConsultaLocador extends AppCompatActivity {
         Intent intent = new Intent("GET_LOCADOR_CPF");
         intent.putExtra("CPF", editTextCpf.getText().toString());
         sendBroadcast(intent);
+    }
+
+    private void setLanguage() {
+        TextView consulta_locador = findViewById(R.id.consulta_locador);
+        Button consulta_por_cpf = findViewById(R.id.consulta_por_cpf);
+        Button consulta_todos = findViewById(R.id.consulta_todos);
+        if(MainActivity.LANGAGUE.equals("PT")) {
+            consulta_locador.setText(R.string.consulta_locador_pt);
+            consulta_por_cpf.setText(R.string.consultar_por_cpf_pt);
+            consulta_todos.setText(R.string.consultar_todos_pt);
+        } else {
+            consulta_locador.setText(R.string.consulta_locador_en);
+            consulta_por_cpf.setText(R.string.consultar_por_cpf_en);
+            consulta_todos.setText(R.string.consultar_todos_en);
+        }
     }
 }

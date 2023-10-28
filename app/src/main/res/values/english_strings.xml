@@ -4,11 +4,11 @@
     <string name="cadastro_veiculo_en">Vehicle Registration</string>
     <string name="consulta_veiculo_en">Vehicle Consultation</string>
     <string name="locador_en">Locator</string>
-    <string name="cadastro_locador_en">Landlord Registration</string>
-    <string name="consulta_locador_en">Landlord Consultation</string>
+    <string name="cadastro_locador_en">Locator Registration</string>
+    <string name="consulta_locador_en">Locator Consultation</string>
     <string name="locacao_en">Location</string>
-    <string name="cadastro_locacao_en">Rental Registration</string>
-    <string name="consulta_locacao_en">Rental Consultation</string>
+    <string name="cadastro_locacao_en">Location Registration</string>
+    <string name="consulta_locacao_en">Location Consultation</string>
     <string name="idioma_en">EN</string>
     <string name="placa_en">Plate</string>
     <string name="consultar_por_placa_en">Consultation by plate</string>
@@ -17,4 +17,12 @@
     <string name="ano_en">Year</string>
     <string name="cor_en">Color</string>
     <string name="cadastrar_en">Register</string>
+    <string name="nome_en">Name</string>
+    <string name="telefone_en">Phone</string>
+    <string name="cidade_en">City</string>
+    <string name="logradouro_en">Address</string>
+    <string name="numero_en">Number</string>
+    <string name="complemento_en">Complement</string>
+    <string name="buscar_cep_en">Search CEP</string>
+    <string name="consultar_por_cpf_en">Search by CPF</string>
 </resources>

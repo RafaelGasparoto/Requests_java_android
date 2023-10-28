@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:text="Cadastro Locador"
+        android:id="@+id/cadastro_de_locador"
+        android:text="Cadastro locador"
         android:textAlignment="center"/>
     <EditText
         android:id="@+id/nome"
@@ -51,6 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Buscar CEP"
+            android:id="@+id/buscar_cep"
             android:onClick="searchCEP"/>
     </LinearLayout>
 
@@ -90,7 +92,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:onClick="cadastrarLocador"
-        android:id="@+id/botão_cadastro_locador"
+        android:id="@+id/cadastrar"
         android:text="Cadastrar" />
 </LinearLayout>
 
