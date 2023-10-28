@@ -39,6 +39,16 @@ public class ConsultaLocador extends AppCompatActivity {
             }
         }
     }
+    @Override
+    public void onActivityResult(int code,
+                                 int result, Intent data) {
+        super.onActivityResult(code, result, data);
+
+        if (code == MainActivity.CADASTRO_LOCADOR_SCREEN && result == RESULT_OK) {
+            getLocadores(new View(getApplicationContext()));
+        }
+    }
+
 
     public ServiceConnection myConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className, IBinder binder) {

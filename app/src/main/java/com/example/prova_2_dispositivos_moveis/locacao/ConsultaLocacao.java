@@ -39,6 +39,15 @@ public class ConsultaLocacao extends AppCompatActivity {
             }
         }
     }
+    @Override
+    public void onActivityResult(int code,
+                                 int result, Intent data) {
+        super.onActivityResult(code, result, data);
+
+        if (code == MainActivity.CADASTRO_LOCACAO_SCREEN && result == RESULT_OK) {
+            getLocacoes(new View(getApplicationContext()));
+        }
+    }
 
     public ServiceConnection myConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className, IBinder binder) {

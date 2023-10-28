@@ -19,32 +19,19 @@ public class Veiculo implements Serializable {
         return ano;
     }
 
-    public void setAno(int ano) {
-        this.ano = ano;
-    }
 
     public int getIdModelo() {
         return idModelo;
     }
 
-    public void setIdModelo(int idModelo) {
-        this.idModelo = idModelo;
-    }
 
     public String getCor() {
         return cor;
     }
 
-    public void setCor(String cor) {
-        this.cor = cor;
-    }
 
     public String getPlaca() {
         return placa;
-    }
-
-    public void setPlaca(String placa) {
-        this.placa = placa;
     }
 
     public int idModelo;
@@ -53,7 +40,7 @@ public class Veiculo implements Serializable {
 
     @Override
     public String toString() {
-        return ano + " | " + placa + " | " + idModelo;
+        return idModelo + " | " + ano + " | " + placa + " | " +  cor;
     }
 }
 

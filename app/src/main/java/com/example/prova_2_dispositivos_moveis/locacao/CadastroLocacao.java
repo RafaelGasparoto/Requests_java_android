@@ -22,6 +22,7 @@ import com.example.prova_2_dispositivos_moveis.R;
 import com.example.prova_2_dispositivos_moveis.locador.CadastroLocador;
 import com.example.prova_2_dispositivos_moveis.locador.Locador;
 import com.example.prova_2_dispositivos_moveis.locador.ServicoLocador;
+import com.example.prova_2_dispositivos_moveis.veiculo.CadastroVeiculo;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
@@ -46,12 +47,14 @@ public class CadastroLocacao extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("POST_LOCACAO")) {
                 if(myServiceBinder.postLocacao(locacao)) {
+                    CadastroLocacao.this.setResult(RESULT_OK);
                     finish();
                 } else {
                     locacao = null;
                 }
             } else if (intent.getAction().equals("PUT_LOCACAO")) {
                 if(myServiceBinder.putLocacao(locacao)) {
+                    CadastroLocacao.this.setResult(RESULT_OK);
                     finish();
                 }
             }

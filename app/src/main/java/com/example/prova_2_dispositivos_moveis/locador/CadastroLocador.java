@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.prova_2_dispositivos_moveis.MainActivity;
 import com.example.prova_2_dispositivos_moveis.R;
+import com.example.prova_2_dispositivos_moveis.locacao.CadastroLocacao;
 
 public class CadastroLocador extends AppCompatActivity {
     Locador locador;
@@ -32,21 +33,23 @@ public class CadastroLocador extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("POST_LOCADOR")) {
-                if(myServiceBinder.postLocador(locador)) {
+                if (myServiceBinder.postLocador(locador)) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Locador cadastrado com sucesso", Toast.LENGTH_SHORT);
                     toast.show();
+                    CadastroLocador.this.setResult(RESULT_OK);
                     finish();
                 }
                 locador = null;
             } else if (intent.getAction().equals("PUT_LOCADOR")) {
-                if(myServiceBinder.putLocador(locador)){
+                if (myServiceBinder.putLocador(locador)) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Locador atualizado com sucesso", Toast.LENGTH_SHORT);
                     toast.show();
+                    CadastroLocador.this.setResult(RESULT_OK);
                     finish();
                 }
             } else if (intent.getAction().equals("GET_LOCADOR_CEP")) {
                 cepinfo = myServiceBinder.getLocadorCep(cep.getText().toString());
-                if(cepinfo != null) {
+                if (cepinfo != null) {
                     cidade.setText(cepinfo.localidade);
                     logradouro.setText(cepinfo.logradouro);
                     complemento.setText(cepinfo.complemento);
@@ -98,6 +101,7 @@ public class CadastroLocador extends AppCompatActivity {
         registerReceiver(myReceiver,
                 new IntentFilter("GET_LOCADOR_CEP"));
     }
+
     public void setLocadorToEdit() {
         nome.setText(locador.getNome());
         cpf.setText(locador.getCpf());
@@ -111,6 +115,7 @@ public class CadastroLocador extends AppCompatActivity {
         uf.setText(locador.getUf());
         cpf.setEnabled(false);
     }
+
     private void getEditText() {
         nome = findViewById(R.id.nome);
         cpf = findViewById(R.id.cpf);
@@ -177,7 +182,7 @@ public class CadastroLocador extends AppCompatActivity {
         Button buscar_cep = findViewById(R.id.buscar_cep);
         TextView cadastro_de_locador = findViewById(R.id.cadastro_de_locador);
 
-        if(MainActivity.LANGAGUE.equals("PT")) {
+        if (MainActivity.LANGAGUE.equals("PT")) {
             nome.setHint(R.string.nome_pt);
             telefone.setHint(R.string.telefone_pt);
             cidade.setHint(R.string.cidade_pt);

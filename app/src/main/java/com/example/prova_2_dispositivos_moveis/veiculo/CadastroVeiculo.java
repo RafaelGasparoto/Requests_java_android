@@ -30,6 +30,7 @@ public class CadastroVeiculo extends AppCompatActivity {
                 if (myServiceBinder.postVeiculo(veiculo)) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Veículo cadastrado com sucesso", Toast.LENGTH_SHORT);
                     toast.show();
+                    CadastroVeiculo.this.setResult(RESULT_OK);
                     finish();
                 }
                 veiculo = null;
@@ -37,6 +38,7 @@ public class CadastroVeiculo extends AppCompatActivity {
                 if (myServiceBinder.putVeiculo(veiculo)) {
                     Toast toast = Toast.makeText(getApplicationContext(), "Veículo atualizado com sucesso", Toast.LENGTH_SHORT);
                     toast.show();
+                    CadastroVeiculo.this.setResult(RESULT_OK);
                     finish();
                 }
             }
