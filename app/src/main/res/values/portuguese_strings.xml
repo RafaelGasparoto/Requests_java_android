@@ -13,4 +13,8 @@
     <string name="placa_pt">Placa</string>
     <string name="consultar_por_placa_pt">Consultar por placa</string>
     <string name="consultar_todos_pt">Consultar todos</string>
+    <string name="id_modelo_pt">ID Modelo</string>
+    <string name="ano_pt">Ano</string>
+    <string name="cor_pt">Cor</string>
+    <string name="cadastrar_pt">Cadastrar</string>
 </resources>

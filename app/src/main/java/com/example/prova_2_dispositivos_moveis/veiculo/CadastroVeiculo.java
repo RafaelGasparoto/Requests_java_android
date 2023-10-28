@@ -14,8 +14,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.prova_2_dispositivos_moveis.MainActivity;
 import com.example.prova_2_dispositivos_moveis.R;
 
 public class CadastroVeiculo extends AppCompatActivity {
@@ -67,6 +69,7 @@ public class CadastroVeiculo extends AppCompatActivity {
         if (veiculo != null) {
             setVeiculoToEdit();
         }
+        setLanguage();
     }
 
     @Override
@@ -129,5 +132,25 @@ public class CadastroVeiculo extends AppCompatActivity {
     public void doBindService() {
         Intent intent = new Intent(this, ServicoVeiculo.class);
         bindService(intent, myConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    private void setLanguage () {
+        Button cadastrar = findViewById(R.id.botão_cadastro);
+        TextView cadastro_de_veiculos = findViewById(R.id.cadastro_de_veiculos);
+        if(MainActivity.LANGAGUE.equals("PT")) {
+            idModelo.setHint(R.string.id_modelo_pt);
+            ano.setHint(R.string.ano_pt);
+            cor.setHint(R.string.cor_pt);
+            placa.setHint(R.string.placa_pt);
+            cadastrar.setText(R.string.cadastrar_pt);
+            cadastro_de_veiculos.setText(R.string.cadastro_veiculo_pt);
+        } else {
+            idModelo.setHint(R.string.id_modelo_en);
+            ano.setHint(R.string.ano_en);
+            cor.setHint(R.string.cor_en);
+            placa.setHint(R.string.placa_en);
+            cadastrar.setText(R.string.cadastrar_en);
+            cadastro_de_veiculos.setText(R.string.cadastro_veiculo_en);
+        }
     }
 }

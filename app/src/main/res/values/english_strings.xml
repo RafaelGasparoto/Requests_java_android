@@ -13,4 +13,8 @@
     <string name="placa_en">Plate</string>
     <string name="consultar_por_placa_en">Consultation by plate</string>
     <string name="consultar_todos_en">Consultation all</string>
+    <string name="id_modelo_en">ID Model</string>
+    <string name="ano_en">Year</string>
+    <string name="cor_en">Color</string>
+    <string name="cadastrar_en">Register</string>
 </resources>
