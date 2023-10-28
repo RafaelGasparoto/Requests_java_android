@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="20dp"
     tools:context=".locacao.ConsultaLocacao">
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +18,8 @@
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textAlignment="center"
-            android:text="Consulta de Locação"/>
+            android:id="@+id/consulta_locacao"
+            android:text="Consulta Locação"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -36,11 +38,13 @@
                 android:layout_height="wrap_content"
                 android:onClick="getLocacaoById"
                 android:text="Consultar Por ID"
+                android:id="@+id/consulta_por_id"
                 android:layout_gravity="end"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="getLocacoes"
+                android:id="@+id/consulta_todos"
                 android:text="Consultar Todos"
                 android:layout_gravity="end"/>
         </LinearLayout>

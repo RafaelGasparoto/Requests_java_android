@@ -20,8 +20,6 @@ import android.widget.Toast;
 import com.example.prova_2_dispositivos_moveis.MainActivity;
 import com.example.prova_2_dispositivos_moveis.R;
 
-import org.w3c.dom.Text;
-
 public class CadastroLocador extends AppCompatActivity {
     Locador locador;
 

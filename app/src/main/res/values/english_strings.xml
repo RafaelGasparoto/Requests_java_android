@@ -25,4 +25,9 @@
     <string name="complemento_en">Complement</string>
     <string name="buscar_cep_en">Search CEP</string>
     <string name="consultar_por_cpf_en">Search by CPF</string>
+    <string name="consultar_por_id_en">Search by ID</string>
+    <string name="data_inicio_en">Start date</string>
+    <string name="data_final_en">End date</string>
+    <string name="valor_en">Value</string>
+    <string name="selecionar_data_en">Select date</string>
 </resources>

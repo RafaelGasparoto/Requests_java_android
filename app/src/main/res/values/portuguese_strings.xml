@@ -25,4 +25,10 @@
     <string name="complemento_pt">Complemento</string>
     <string name="buscar_cep_pt">Buscar CEP</string>
     <string name="consultar_por_cpf_pt">Consultar por CPF</string>
+    <string name="consultar_por_id_pt">Consultar por ID</string>
+    <string name="data_inicio_pt">Data início</string>
+    <string name="data_final_pt">Data final</string>
+    <string name="valor_pt">Valor</string>
+    <string name="selecionar_data_pt">Selecionar data</string>
+
 </resources>

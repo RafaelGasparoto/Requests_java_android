@@ -13,8 +13,10 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.prova_2_dispositivos_moveis.MainActivity;
 import com.example.prova_2_dispositivos_moveis.R;
@@ -29,9 +31,9 @@ public class ConsultaLocacao extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("GET_LOCACAO")) {
                 myServiceBinder.getLocacoes(lista, locacoes, adapter);
-            } else if(intent.getAction().equals("GET_LOCACAO_ID")) {
+            } else if (intent.getAction().equals("GET_LOCACAO_ID")) {
                 String id = intent.getStringExtra("ID");
-                if(!id.isEmpty()) {
+                if (!id.isEmpty()) {
                     myServiceBinder.getLocacaoById(lista, locacoes, adapter, id);
                 }
             }
@@ -62,12 +64,15 @@ public class ConsultaLocacao extends AppCompatActivity {
         doBindService();
         makeListView();
         listenSelectLocacao();
+        setLanguage();
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         unregisterReceiver(myReceiver);
     }
+
     private void registerReceivers() {
         registerReceiver(myReceiver,
                 new IntentFilter("GET_LOCACAO"));
@@ -109,5 +114,21 @@ public class ConsultaLocacao extends AppCompatActivity {
         Intent intent = new Intent("GET_LOCACAO_ID");
         intent.putExtra("ID", editTextCpf.getText().toString());
         sendBroadcast(intent);
+    }
+
+    private void setLanguage() {
+        TextView consulta_locacao = findViewById(R.id.consulta_locacao);
+        Button consulta_por_id = findViewById(R.id.consulta_por_id);
+        Button consulta_todos = findViewById(R.id.consulta_todos);
+
+        if (MainActivity.LANGAGUE.equals("PT")) {
+            consulta_locacao.setText(R.string.consulta_locacao_pt);
+            consulta_por_id.setText(R.string.consultar_por_id_pt);
+            consulta_todos.setText(R.string.consultar_todos_pt);
+        } else {
+            consulta_locacao.setText(R.string.consulta_locacao_en);
+            consulta_por_id.setText(R.string.consultar_por_id_en);
+            consulta_todos.setText(R.string.consultar_todos_en);
+        }
     }
 }
