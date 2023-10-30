@@ -189,8 +189,11 @@ public class CadastroLocador extends AppCompatActivity {
             logradouro.setHint(R.string.logradouro_pt);
             numero.setHint(R.string.numero_pt);
             complemento.setHint(R.string.complemento_pt);
-            cadastrar.setText(R.string.cadastrar_pt);
-            buscar_cep.setText(R.string.buscar_cep_pt);
+            if (locador != null) {
+                cadastrar.setText(R.string.atualizar_pt);
+            } else {
+                cadastrar.setText(R.string.cadastrar_pt);
+            }            buscar_cep.setText(R.string.buscar_cep_pt);
             cadastro_de_locador.setText(R.string.cadastro_locador_pt);
         } else {
             nome.setHint(R.string.nome_en);
@@ -199,7 +202,11 @@ public class CadastroLocador extends AppCompatActivity {
             logradouro.setHint(R.string.logradouro_en);
             numero.setHint(R.string.numero_en);
             complemento.setHint(R.string.complemento_en);
-            cadastrar.setText(R.string.cadastrar_en);
+            if (locador != null) {
+                cadastrar.setText(R.string.atualizar_en);
+            } else {
+                cadastrar.setText(R.string.cadastrar_en);
+            }
             buscar_cep.setText(R.string.buscar_cep_en);
             cadastro_de_locador.setText(R.string.cadastro_locador_en);
         }

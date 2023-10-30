@@ -30,5 +30,7 @@
     <string name="data_final_pt">Data final</string>
     <string name="valor_pt">Valor</string>
     <string name="selecionar_data_pt">Selecionar data</string>
+    <string name="deletar_pt">Deletar</string>
+    <string name="atualizar_pt">Atualizar</string>
 
 </resources>

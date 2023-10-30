@@ -46,19 +46,25 @@ public class CadastroLocacao extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("POST_LOCACAO")) {
-                if(myServiceBinder.postLocacao(locacao)) {
+                if (myServiceBinder.postLocacao(locacao)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Locação cadastrada com sucesso", Toast.LENGTH_SHORT);
+                    toast.show();
                     CadastroLocacao.this.setResult(RESULT_OK);
                     finish();
                 } else {
                     locacao = null;
                 }
             } else if (intent.getAction().equals("PUT_LOCACAO")) {
-                if(myServiceBinder.putLocacao(locacao)) {
+                if (myServiceBinder.putLocacao(locacao)) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Locação atualizada com sucesso", Toast.LENGTH_SHORT);
+                    toast.show();
                     CadastroLocacao.this.setResult(RESULT_OK);
                     finish();
                 }
             } else if (intent.getAction().equals("DELETE_LOCACAO")) {
-                if(myServiceBinder.deleteLocacao(locacao.getId())) {
+                if (myServiceBinder.deleteLocacao(locacao.getId())) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Deletada com sucesso", Toast.LENGTH_SHORT);
+                    toast.show();
                     CadastroLocacao.this.setResult(RESULT_OK);
                     finish();
                 }
@@ -88,10 +94,11 @@ public class CadastroLocacao extends AppCompatActivity {
         listenDatePicker();
         getEditText();
         doBindService();
+        setLanguage();
+
         if (locacao != null)
             setLocacaoToEdit();
 
-        setLanguage();
     }
 
     private void listenDatePicker() {
@@ -118,10 +125,10 @@ public class CadastroLocacao extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
                 calendar.setTimeInMillis((Long) selection);
                 SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                String formattedDate  = format.format(calendar.getTime());
-                if(date.equals("Inicio")) {
+                String formattedDate = format.format(calendar.getTime());
+                if (date.equals("Inicio")) {
                     inicio.setText("" + formattedDate);
-                } else if(date.equals("Fim")) {
+                } else if (date.equals("Fim")) {
                     fim.setText("" + formattedDate);
                 }
             }
@@ -151,9 +158,7 @@ public class CadastroLocacao extends AppCompatActivity {
         id.setText(Integer.toString(locacao.getId()));
         placa.setText(locacao.getPlaca());
         valor.setText(Double.toString(locacao.getValor()));
-        Button cadastrar = findViewById(R.id.cadastrar);
         Button deletar = findViewById(R.id.deletar);
-        cadastrar.setText("Atualizar cadastro");
         deletar.setEnabled(true);
     }
 
@@ -212,16 +217,22 @@ public class CadastroLocacao extends AppCompatActivity {
         Button selecionar_data_inicio = findViewById(R.id.selecionar_data_inicio);
         Button selecionar_data_final = findViewById(R.id.selecionar_data_final);
         Button cadastrar = findViewById(R.id.cadastrar);
+        Button deletar = findViewById(R.id.deletar);
 
-        if(MainActivity.LANGAGUE.equals("PT")) {
+        if (MainActivity.LANGAGUE.equals("PT")) {
             data_inicio.setHint(R.string.data_inicio_pt);
             data_final.setHint(R.string.data_final_pt);
             selecionar_data_final.setText(R.string.selecionar_data_pt);
             selecionar_data_inicio.setText(R.string.selecionar_data_pt);
             placa.setHint(R.string.placa_pt);
             valor.setHint(R.string.valor_pt);
-            cadastrar.setText(R.string.cadastrar_pt);
+            if (locacao != null) {
+                cadastrar.setText(R.string.atualizar_pt);
+            } else {
+                cadastrar.setText(R.string.cadastrar_pt);
+            }
             cadastro_locacao.setText(R.string.cadastro_locacao_pt);
+            deletar.setText(R.string.deletar_pt);
         } else {
             data_inicio.setHint(R.string.data_inicio_en);
             data_final.setHint(R.string.data_final_en);
@@ -229,8 +240,13 @@ public class CadastroLocacao extends AppCompatActivity {
             selecionar_data_inicio.setText(R.string.selecionar_data_en);
             placa.setHint(R.string.placa_en);
             valor.setHint(R.string.valor_en);
-            cadastrar.setText(R.string.cadastrar_en);
+            if (locacao != null) {
+                cadastrar.setText(R.string.atualizar_en);
+            } else {
+                cadastrar.setText(R.string.cadastrar_en);
+            }
             cadastro_locacao.setText(R.string.cadastro_locacao_en);
+            deletar.setText(R.string.deletar_en);
         }
     }
 

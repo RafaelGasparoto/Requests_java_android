@@ -30,4 +30,6 @@
     <string name="data_final_en">End date</string>
     <string name="valor_en">Value</string>
     <string name="selecionar_data_en">Select date</string>
+    <string name="deletar_en">Delete</string>
+    <string name="atualizar_en">Update</string>
 </resources>

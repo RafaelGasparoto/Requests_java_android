@@ -93,8 +93,6 @@ public class CadastroVeiculo extends AppCompatActivity {
         cor.setText(veiculo.getCor());
         placa.setText(veiculo.getPlaca());
         placa.setEnabled(false);
-        Button button = findViewById(R.id.botão_cadastro);
-        button.setText("Atualizar cadastro");
     }
 
     private void getEditText() {
@@ -144,14 +142,22 @@ public class CadastroVeiculo extends AppCompatActivity {
             ano.setHint(R.string.ano_pt);
             cor.setHint(R.string.cor_pt);
             placa.setHint(R.string.placa_pt);
-            cadastrar.setText(R.string.cadastrar_pt);
+            if (veiculo != null) {
+                cadastrar.setText(R.string.atualizar_pt);
+            } else {
+                cadastrar.setText(R.string.cadastrar_pt);
+            }
             cadastro_de_veiculos.setText(R.string.cadastro_veiculo_pt);
         } else {
             idModelo.setHint(R.string.id_modelo_en);
             ano.setHint(R.string.ano_en);
             cor.setHint(R.string.cor_en);
             placa.setHint(R.string.placa_en);
-            cadastrar.setText(R.string.cadastrar_en);
+            if (veiculo != null) {
+                cadastrar.setText(R.string.atualizar_en);
+            } else {
+                cadastrar.setText(R.string.cadastrar_en);
+            }
             cadastro_de_veiculos.setText(R.string.cadastro_veiculo_en);
         }
     }
