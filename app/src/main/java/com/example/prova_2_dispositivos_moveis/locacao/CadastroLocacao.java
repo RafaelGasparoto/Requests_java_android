@@ -57,6 +57,11 @@ public class CadastroLocacao extends AppCompatActivity {
                     CadastroLocacao.this.setResult(RESULT_OK);
                     finish();
                 }
+            } else if (intent.getAction().equals("DELETE_LOCACAO")) {
+                if(myServiceBinder.deleteLocacao(locacao.getId())) {
+                    CadastroLocacao.this.setResult(RESULT_OK);
+                    finish();
+                }
             }
         }
     }
@@ -135,6 +140,8 @@ public class CadastroLocacao extends AppCompatActivity {
                 new IntentFilter("POST_LOCACAO"));
         registerReceiver(myReceiver,
                 new IntentFilter("PUT_LOCACAO"));
+        registerReceiver(myReceiver,
+                new IntentFilter("DELETE_LOCACAO"));
     }
 
     public void setLocacaoToEdit() {
@@ -144,8 +151,10 @@ public class CadastroLocacao extends AppCompatActivity {
         id.setText(Integer.toString(locacao.getId()));
         placa.setText(locacao.getPlaca());
         valor.setText(Double.toString(locacao.getValor()));
-        Button button = findViewById(R.id.cadastrar);
-        button.setText("Atualizar cadastro");
+        Button cadastrar = findViewById(R.id.cadastrar);
+        Button deletar = findViewById(R.id.deletar);
+        cadastrar.setText("Atualizar cadastro");
+        deletar.setEnabled(true);
     }
 
     private void getEditText() {
@@ -223,5 +232,10 @@ public class CadastroLocacao extends AppCompatActivity {
             cadastrar.setText(R.string.cadastrar_en);
             cadastro_locacao.setText(R.string.cadastro_locacao_en);
         }
+    }
+
+    public void deletarLocacao(View v) {
+        Intent intent = new Intent("DELETE_LOCACAO");
+        sendBroadcast(intent);
     }
 }

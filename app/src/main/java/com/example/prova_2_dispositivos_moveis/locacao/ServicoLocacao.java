@@ -167,4 +167,27 @@ public class ServicoLocacao extends Service {
         return true;
     }
 
+    public boolean deleteLocacao(int id) {
+        try {
+            String endPoint = String.format("https://argo.td.utfpr.edu.br/locadora-war/ws/locacao/%s", id);
+            URL url = new URL(endPoint);
+            HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+            con.setRequestMethod("DELETE");
+            con.setRequestProperty("content-type", "application/json");
+            con.connect();
+            Log.d("ResponseCode", "Http " + con.getResponseCode());
+            if(con.getResponseCode() != 204) {
+                Toast toast = Toast.makeText(this, "Houve algum erro ao deletar", Toast.LENGTH_SHORT);
+                toast.show();
+                return false;
+            }
+        } catch (Throwable t) {
+            Toast toast = Toast.makeText(this, "Houve algum erro ao deletar", Toast.LENGTH_SHORT);
+            toast.show();
+            t.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
 }
