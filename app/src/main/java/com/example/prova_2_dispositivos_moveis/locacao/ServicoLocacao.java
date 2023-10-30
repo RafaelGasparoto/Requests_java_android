@@ -153,7 +153,7 @@ public class ServicoLocacao extends Service {
             pw.flush();
             con.connect();
             Log.d("ResponseCode", "Http " + con.getResponseCode());
-            if(con.getResponseCode() != 201) {
+            if(con.getResponseCode() != 200) {
                 Toast toast = Toast.makeText(this, "Algum dado inserido está errado", Toast.LENGTH_SHORT);
                 toast.show();
                 return false;
